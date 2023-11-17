@@ -26,7 +26,7 @@ export const getPlaces = async(term) => {
     const places = data.features.map(place=>({
         id:   place.id,
         name: place.place_name_es,
-        lng:  place.center[0],
+        lon:  place.center[0],
         lat:  place.center[1]
     }))
 

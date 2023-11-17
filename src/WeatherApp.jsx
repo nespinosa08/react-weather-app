@@ -8,21 +8,39 @@ export const WeatherApp = () => {
 
 const [filterText, setfilterText] = useState('')
 
+const [places, setPlaces] = useState([]); //lista de lugares que arroja la busqueda
+const [placeId, setPlaceId] = useState(''); //Id de lugar seleccionado de la lista
 
-
+const handleClick = ()=>{
+  setfilterText('');
+  setPlaceId('')
+}
   return (
     <>
     <h2>WeatherApp</h2>
-    <SearchBar 
+    <br></br>
+    { (!placeId) &&
+      <SearchBar 
+      filterText={filterText}
+      setfilterText= {setfilterText}
+      /> 
+    }
+    <br></br>
+    <PlaceList 
     filterText={filterText}
-    setfilterText= {setfilterText}
-    /> 
-    <br></br>
-    <PlaceList filterText={filterText}  />
-    <br></br>
+    places={places}
+    placeId={placeId}
+    setPlaces={setPlaces}
+    setPlaceId={setPlaceId} />
+
+    { (placeId) &&
+      <button onClick={ handleClick }>Agregar otra busqueda</button>
+    }
+
+      <WeatherBar 
+    places={places}
+    placeId={placeId}/>
     <MenuBar />
-    <br></br>
-    <WeatherBar />
     
     </>
   )

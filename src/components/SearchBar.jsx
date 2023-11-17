@@ -7,8 +7,8 @@ export const SearchBar = ({filterText, setfilterText}) => {
 
   return (
     <>
-    
     <h3>Indique localidad</h3>
+
     <form onSubmit={handleSubmit}>
         <input 
         type="text"
@@ -16,7 +16,7 @@ export const SearchBar = ({filterText, setfilterText}) => {
         value={filterText}
         onChange={(e)=>setfilterText(e.target.value)} />
     </form>
-    {/* se puede agregar un boton paraenviar la busqueda */}
+    
     </>
   )
 }
