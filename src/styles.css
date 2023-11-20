@@ -7,7 +7,7 @@ html, body{
     font-size: 1.3rem;
     /* padding:30px; */
 }
-button {
+button, form, select, input {
     height: 20;
     padding: 5px;
     font-size: 15px;
@@ -15,9 +15,9 @@ button {
     flex-wrap: wrap;
     margin: 5px;
 }
-div {
+/* div {
     font-size: 20px;
-}
+} */
 
 .card {
     border-style: solid;
@@ -29,7 +29,20 @@ div {
 strong {
     color: aqua;
 }
-a {
+/* select {
     display: flex
+} */
+a {
+    display: flex;
+    color: white;
+    text-decoration: none;
+    padding: 5 px;
+    transition: background-color 0.1s;
+}
+a:hover {
+    background-color: darkgray;
+}
+img {
+    vertical-align: -webkit-baseline-middle;
 }
 

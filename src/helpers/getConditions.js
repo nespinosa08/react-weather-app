@@ -1,5 +1,5 @@
 
-export const getConditions = async(place) => {
+export const getConditions = async(place, uni) => {
     
     try{
         const baseUrl = 'https://api.openweathermap.org/data/2.5/weather?'
@@ -8,7 +8,7 @@ export const getConditions = async(place) => {
         lon:  place.lon,
         language:   'es',
         // en, es, fr, de
-        units: 'metric',
+        units: uni,
         // standard, metric, imperial
         token:      'f87c2df3a4816cee39b0791913f62e8f'
     }
@@ -25,12 +25,10 @@ export const getConditions = async(place) => {
         ...data.main,
         ...data.weather[0],
         ...data.wind,
+        ...data.rain,
         visibility:data.visibility,
       }
-
-
     return conditions
-
 
     } catch (err){
         throw new Error('Condiciones climáticas no disponibles')

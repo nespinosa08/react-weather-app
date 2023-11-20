@@ -20,6 +20,7 @@ useEffect(()=>{
 
 const listItem = places.map(place=>
   <a 
+  href="#"
   key={place.id}
   onClick={()=>setPlaceId(place.id)}
   >

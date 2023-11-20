@@ -7,7 +7,7 @@ export const SearchBar = ({filterText, setfilterText}) => {
 
   return (
     <>
-    <h3>Indique localidad</h3>
+    <h4>Indique localidad</h4>
 
     <form onSubmit={handleSubmit}>
         <input 
