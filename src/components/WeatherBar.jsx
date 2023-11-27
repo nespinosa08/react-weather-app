@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { getConditions } from "../helpers/getConditions"
+import { ThemeContext } from "../context/ThemeContext";
 
 export const WeatherBar = ({places, placeId, units, unitSystem}) => {
 
@@ -44,18 +45,27 @@ export const WeatherBar = ({places, placeId, units, unitSystem}) => {
     // 1h
                 } = weatherConditions;
 
+
+  // establecer el tema
+  const theme = useContext(ThemeContext);
+  const className = (theme)? 'light': 'dark'
+
   return (
     <>
     {(selectPlace) && 
 
       <> 
+      <section
+      className={className}
+      >
+
         <h4>Condiciones Climaticas</h4>
         
         <div>Lugar: <strong>{selectPlace.name}</strong></div>
 
         
         <div>Condición del tiempo:
-          <strong>{` ${description.toUpperCase()}`} </strong>
+          <strong>{` ${description}`} </strong>
           <img 
           src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
           alt={main}
@@ -70,6 +80,8 @@ export const WeatherBar = ({places, placeId, units, unitSystem}) => {
         <div>Presion Atmosferica: <strong>{`${pressure} ${unitSystem[units].pressure}`} </strong></div>
         <div>Humedad Relativa: <strong>{`${humidity} ${unitSystem[units].humidity}`} </strong></div>
         <div>Velocidad del viento: <strong>{`${speed} ${unitSystem[units].speed}`} </strong></div>
+
+      </section>
       </>    
     }   
     </>

@@ -1,5 +1,10 @@
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 export const SearchBar = ({filterText, setfilterText}) => {
+
+  const theme = useContext(ThemeContext);
+  const className = (theme)? 'light': 'dark'
 
   const handleSubmit = (e)=>{
     e.preventDefault();
@@ -7,6 +12,10 @@ export const SearchBar = ({filterText, setfilterText}) => {
 
   return (
     <>
+    <section 
+    className={className}
+    >
+
     <h4>Indique localidad</h4>
 
     <form onSubmit={handleSubmit}>
@@ -16,6 +25,8 @@ export const SearchBar = ({filterText, setfilterText}) => {
         value={filterText}
         onChange={(e)=>setfilterText(e.target.value)} />
     </form>
+
+    </section>
     
     </>
   )
