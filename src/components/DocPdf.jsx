@@ -1,8 +1,12 @@
+
+
 import { useContext, useEffect, useState } from "react"
 import { getConditions } from "../helpers/getConditions"
 import { ThemeContext } from "../context/ThemeContext";
+import { Document, Image, Page, Text, View } from "@react-pdf/renderer"
 
-export const WeatherBar = ({places, placeId, units, unitSystem}) => {
+
+export const DocPdf = ({places, placeId, units, unitSystem}) => {
 
   const selectPlace = places.find(place=>place.id === placeId)
 
@@ -55,45 +59,59 @@ export const WeatherBar = ({places, placeId, units, unitSystem}) => {
 
   return (
     <>
+    <Document>
+        <Page size="A4">
+  
     {(selectPlace) && 
 
       <> 
-      <section
+      <View
       className={className}
+      style={{
+        margin: 30,
+        padding: 20,
+        width: 500
+      }}
       >
 
-        <h4>Condiciones Climaticas</h4>
+        <Text>Condiciones Climaticas</Text>
         
-        <div>Lugar: <strong>{name}</strong></div>
+        <View> <Text>Lugar:{name}</Text></View>
 
         
-        <div>Condición del tiempo:
-          <strong>{` ${description}`} </strong>
-          <img 
+        <View>
+          <Text>Condición del tiempo:{` ${description}`} </Text>
+          <Image 
           src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
           alt={main}
+          style={{ width:100, display:"flex"}}
           />
-        </div>
+        </View>
 
 
-        <div>Temp.: <strong>{`${temp} ${unitSystem[units].temp}`} </strong></div>
-        <div>Sensación Térmica: <strong>{`${feels_like} ${unitSystem[units].feels_like}`} </strong></div>
-        <div>Temp. min.: <strong>{`${temp_min} ${unitSystem[units].temp_min}`} </strong></div>
-        <div>Temp. max.: <strong>{`${temp_max} ${unitSystem[units].temp_max}`} </strong></div>
-        <div>Presion Atmosferica: <strong>{`${pressure} ${unitSystem[units].pressure}`} </strong></div>
-        <div>Humedad Relativa: <strong>{`${humidity} ${unitSystem[units].humidity}`} </strong></div>
-        <div>Velocidad del viento: <strong>{`${speed} ${unitSystem[units].speed}`} </strong></div>
-        <br />
+        <View><Text>Temp.:{ `${temp} ${unitSystem[units].temp}`} </Text></View>
+        <View> <Text>Sensación Térmica:{`${feels_like} ${unitSystem[units].feels_like}`} </Text></View>
+        <View> <Text>Temp. min.:{`${temp_min} ${unitSystem[units].temp_min}`} </Text></View>
+        <View> <Text>Temp. max.:{`${temp_max} ${unitSystem[units].temp_max}`} </Text></View>
+        <View> <Text>Presion Atmosferica:{`${pressure} ${unitSystem[units].pressure}`} </Text></View>
+        <View> <Text>Humedad Relativa:{`${humidity} ${unitSystem[units].humidity}`} </Text></View>
+        <View> <Text>Velocidad del viento:{`${speed} ${unitSystem[units].speed}`} </Text></View>
+        {/* <br /> */}
        
-        <div>Mapa</div>
-        <img 
+        <Text>Mapa</Text>
+        <Image
         src={url}
         alt="map"
+        style={{ width:400, display:"flex", marginTop: 10}}
+
         />
 
-      </section>
+      </View>
       </>    
     }   
+
+        </Page>
+    </Document>
     </>
   )
 }

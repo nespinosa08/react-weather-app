@@ -6,23 +6,29 @@ import { unitSystem } from "../public/unitsystem"
 import { ThemeContext } from "./context/ThemeContext"
 import { SettingsBar } from "./components/SettingsBar"
 import { HistoryBar } from "./components/HistoryBar"
+import { PrintBar } from "./components/printBar"
+import { DocPdf } from "./components/DocPdf"
+import { PDFViewer } from "@react-pdf/renderer"
+
+// TODO: IMPRIMIR REPORTE DE TIEMPO EN PDF
+// TODO: MAQUETAR LA APLICACION
 
 export const WeatherApp = () => {
 
 const [filterText, setfilterText] = useState('')
 
-const [places, setPlaces] = useState([]); //lista de lugares que arroja la busqueda
+const [places, setPlaces] = useState([]); //Lista de lugares que arroja la busqueda
 const [placeId, setPlaceId] = useState(''); //Id de lugar seleccionado de la lista
-const [units, setUnits] = useState('metric') // variable para establecer el sistema de unidades
+const [units, setUnits] = useState('metric') //Variable para establecer el sistema de unidades
 
 
-const initHistory = JSON.parse( localStorage.getItem('history') ) || []; // Valor inicial del estado historyPlace, extraido del localStorage O valor inicial de un arreglo vacio
-const [historyPlaces, setHistoryPlaces] = useState(initHistory); // lista de lugares consultados
+const initHistory = JSON.parse( localStorage.getItem('history') ) || []; //Valor inicial del estado historyPlace, extraido del localStorage ó valor inicial de un arreglo vacio
+const [historyPlaces, setHistoryPlaces] = useState(initHistory); //Lista de lugares consultados
+const [viewPdf, setViewPdf] = useState(false); // para mostrar doc pdf
 
 
-const [theme, setTheme] = useState(false); // claro: true, Oscuro: false
+const [theme, setTheme] = useState(false); //Temas => claro: true, Oscuro: false
 
-// TODO: Maquetar los elementos
 
 const handleClick = ()=>{
   setfilterText('');
@@ -65,11 +71,41 @@ const handleClickTheme = ()=>{
       <button onClick={ handleClick }>Agregar otra busqueda</button>
     }
 
-    <WeatherBar 
-    places={places}
-    placeId={placeId}
-    units={units}
-    unitSystem = {unitSystem} />
+
+    {(placeId) &&
+      <>
+      
+      <WeatherBar 
+      places={places}
+      placeId={placeId}
+      units={units}
+      unitSystem = {unitSystem} 
+      />
+
+      <button 
+      onClick= { ()=> setViewPdf(!viewPdf) }>
+        {(!viewPdf)? 'Ver PDF': 'Ocultar PDF'}
+      </button>
+      {(viewPdf) &&
+        <PDFViewer style={{width:'40%', height:'100vh'}}>
+            
+          <DocPdf 
+            places={places}
+            placeId={placeId}
+            units={units}
+            unitSystem = {unitSystem}
+          />
+
+        </PDFViewer>
+      }
+
+      {/* <PrintBar
+      /> */}
+      </>
+ 
+    
+    }
+
 
     <HistoryBar 
     historyPlaces={historyPlaces}
